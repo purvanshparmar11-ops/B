@@ -11,8 +11,7 @@
 document.getElementById("inquiryForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    fetch("
-https://script.google.com/macros/s/AKfycbzBzbLAUY0LdDbxNV5pLKfz4HDO123567blNJcVsCvFsB-Cj2C_hxBjnhXX6bN7qVr_-g/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbzZ54vE3_36nMCSB5FTYEzD7bu6DCFLfvK8iluCU63si2INbfByZc87FblvFbuRVT-I/exec", {
         method: "POST",
         body: new FormData(this)
     })
