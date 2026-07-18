@@ -22,12 +22,12 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
         mode: "no-cors"
     })
     .then(() => {
-        msgbox("Inquiry submitted successfully!");
+        alert("Inquiry submitted successfully!");
         form.reset();
     })
     .catch(error => {
         console.error(error);
-        msgbox("Submission failed");
+        alert("Submission failed");
     });
 });
 </script>
