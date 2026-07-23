@@ -1,33 +1,28 @@
-<form
-  action="https://script.google.com/macros/s/AKfycbzZ54vE3_36nMCSB5FTYEzD7bu6DCFLfvK8iluCU63si2INbfByZc87FblvFbuRVT-I/exec"
-  method="POST">
-
-  Name<input type="text" name="name" required><br>
-  Email id <input type="email" name="email" required><br>
-  Phone Number <input type="text" name="phone"><br>
-  Message<textarea name="message"></textarea><br>
-
-  <button type="submit">Send Inquiry</button>
+<form id="contactForm">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="text" name="phone" placeholder="Phone">
+    <textarea name="message" placeholder="Your Inquiry"></textarea>
+    <button type="submit">Submit</button>
 </form>
-
 <script>
-document.getElementById("contactForm").addEventListener("submit", function(e) {
+const scriptURL = "https://script.google.com/macros/s/AKfycbyzaV8j-vOEiCrqoTDQbYx9nOYYxvsB70f47o-h1YPWNfycn8jLeusBWq7Re0C60TZu/exec";
+const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const form = this;
-
-    fetch("https://script.google.com/macros/s/AKfycbzZ54vE3_36nMCSB5FTYEzD7bu6DCFLfvK8iluCU63si2INbfByZc87FblvFbuRVT-I/exec", {
+    fetch(scriptURL, {
         method: "POST",
-        body: new FormData(form),
-        mode: "no-cors"
+        body: new FormData(form)
     })
-    .then(() => {
-        alert("Inquiry submitted successfully!");
-        form.reset();
+    .then(response => {
+        alert("Your inquiry has been submitted successfully.");
+        window.location.href = "contact.html"; // Redirect to Contact page
     })
     .catch(error => {
+        alert("Something went wrong. Please try again.");
         console.error(error);
-        alert("Submission failed");
     });
 });
 </script>
