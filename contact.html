@@ -1,19 +1,33 @@
-fetch("https://script.google.com/macros/s/AKfycbz3i0hOeOMzli4RVmNMnBn2Kd3CVnnAmhZQDlF7fJKJrzobrEdBEGasl_gU7I0MZqhd/exec", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        message: document.getElementById("message").value
+<form id="contactForm">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <input type="text" name="phone" placeholder="Phone Number">
+    <textarea name="message" placeholder="Message"></textarea>
+
+    <button type="submit">Send Inquiry</button>
+</form>
+
+<p id="responseMsg"></p>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch("https://script.google.com/macros/s/AKfycbz3i0hOeOMzli4RVmNMnBn2Kd3CVnnAmhZQDlF7fJKJrzobrEdBEGasl_gU7I0MZqhd/exec", {
+        method: "POST",
+        body: formData
     })
-})
-.then(res => res.text())
-.then(data => {
-    console.log(data);
-    document.getElementById("result").innerHTML = "Submitted successfully!";
-})
-.catch(err => {
-    console.error(err);
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById("responseMsg").innerHTML =
+            "✅ Inquiry sent successfully. We will contact you soon.";
+        document.getElementById("contactForm").reset();
+    })
+    .catch(error => {
+        document.getElementById("responseMsg").innerHTML =
+            "❌ Error sending inquiry.";
+    });
 });
+</script>
