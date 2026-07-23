@@ -1,33 +1,33 @@
-<form id="contactForm">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <input type="text" name="phone" placeholder="Phone Number">
-    <textarea name="message" placeholder="Message"></textarea>
+<form
+  action="https://script.google.com/macros/s/AKfycbzZ54vE3_36nMCSB5FTYEzD7bu6DCFLfvK8iluCU63si2INbfByZc87FblvFbuRVT-I/exec"
+  method="POST">
 
-    <button type="submit">Send Inquiry</button>
+  Name<input type="text" name="name" required><br>
+  Email id <input type="email" name="email" required><br>
+  Phone Number <input type="text" name="phone"><br>
+  Message<textarea name="message"></textarea><br>
+
+  <button type="submit">Send Inquiry</button>
 </form>
-
-<p id="responseMsg"></p>
 
 <script>
 document.getElementById("contactForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const formData = new FormData(this);
+    const form = this;
 
-    fetch("https://script.google.com/macros/s/AKfycbw6q2ehHMSBxy3MHuNTIjjdUAbkuZkBCyHPI-jYU20Qyq-YsZijVEUGYfSc_Vhqg_UO/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbzZ54vE3_36nMCSB5FTYEzD7bu6DCFLfvK8iluCU63si2INbfByZc87FblvFbuRVT-I/exec", {
         method: "POST",
-        body: formData
+        body: new FormData(form),
+        mode: "no-cors"
     })
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById("responseMsg").innerHTML =
-            "✅ Inquiry sent successfully. We will contact you soon.";
-        document.getElementById("contactForm").reset();
+    .then(() => {
+        alert("Inquiry submitted successfully!");
+        form.reset();
     })
     .catch(error => {
-        document.getElementById("responseMsg").innerHTML =
-            "❌ Error sending inquiry.";
+        console.error(error);
+        alert("Submission failed");
     });
 });
 </script>
