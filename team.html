@@ -50,38 +50,31 @@
   <button type="submit">Send Inquiry</button>
 </form>
 
+
 <script>
-function showPopup(message){
-    document.getElementById("popupMessage").innerText = message;
-    document.getElementById("popup").style.display = "flex";
-}
-
-function closePopup(){
-    document.getElementById("popup").style.display = "none";
-}
-
 document.getElementById("contactForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const form = this;
 
-
-         
     fetch("https://script.google.com/macros/s/AKfycbwdZ9lD3uWUSD5m-GGiD0GHQKJP_ONEeRsAJEwdg7Hk-Vz8DtKN7WxBEyF96tNbPHG2/exec", {
         method: "POST",
-        body: new FormData(form),
-        mode: "no-cors"
+        body: new FormData(form)
     })
-    .then(() => {
-        showPopup("✓ Inquiry submitted successfully!");
-        form.reset();
+    .then(response => response.json())
+    .then(data => {
+
+        alert(data.message);
+
+        if (data.result === "success") {
+            form.reset();
+        }
     })
     .catch(() => {
-        showPopup("✗ Submission failed. Please try again.");
+        alert("❌ Submission Failed");
     });
 });
 </script>
-
 
 
 
